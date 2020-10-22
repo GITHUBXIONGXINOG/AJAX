@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案例</title>
+</head>
+<body>
+    用户名: <input type="text" id="username">
+    <p></p>
+    <script>
+        //获取input元素
+        const input = document.querySelector('input')
+        const p = document.querySelector('p')
+
+        //声明handle函数
+        function handle(data) {
+          input.style.border = 'solid 1px red'
+          //修改p标签de 提示文本
+            p.innerHTML = data.msg
+        }
+
+        //绑定事件 onblur 丧失焦点
+        input.onblur = function () { //onblur 丧失焦点事件
+            //获取用户的输入值
+            let username = this.value
+            //向服务端发送请求,检查用户名是否存在
+            //1.创建一个script标签
+            const script = document.createElement('script')
+            //2.设置标签的src属性
+            script.src = 'http://127.0.0.1:8000/check-username'
+            //3.将script插入文档中
+            //appendChild() 方法可向节点的子节点列表的末尾添加新的子节点。
+            document.body.appendChild(script)
+
+        }
+    </script>
+</body>
+</html>

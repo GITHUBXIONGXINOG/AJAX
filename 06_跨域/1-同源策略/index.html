@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <h2>尚硅谷</h2>
+  <button>点击获取用户数据</button>
+
+  <script type="text/javascript">
+    const btn = document.querySelector('button')
+    btn.onclick = function () {
+      //1.创建请求对象XMLHttpRequest
+      const x = new XMLHttpRequest()
+      //2.open初始化设置方法和url
+      //因为满足同源策略,url可以简写 '/data'
+      // x.open('GET','http://127.0.0.1:9000/data')
+      x.open('GET','/data')
+
+      //3.send发送请求
+      x.send()
+      //4.事件绑定 处理服务器响应结果
+      x.onreadystatechange = function () {
+        //状态值readyState 4：完成，XMLHttpRequest对象读取服务器响应结束
+        if (x.readyState ===4){
+          //状态码 status 200 响应成功
+          if (x.status >=200 && x.status<300){
+            console.log(x.response)
+          }
+        }
+      }
+    }
+
+
+  </script>
+
+</body>
+</html>

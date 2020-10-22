@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery 发送AJAX 请求</title>
+  <link crossorigin="anonymous" href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2 class="page-header">jQuery 发送AJAX 请求</h2>
+    <button class="btn btn-primary">GET</button>
+    <button class="btn btn-danger">POST</button>
+    <button class="btn btn-info">通用型方法ajax</button>
+  </div>
+  <script>
+    $('button').eq(0).click(function () {
+      $.get('http://127.0.0.1:8000/jquery-server',{a:100,b:200},function (data) {
+        console.log(data) //对象
+      },'json')
+    })
+    $('button').eq(1).click(function () {
+      $.post('http://127.0.0.1:8000/jquery-server',{a:100,b:200},function (data) {
+        console.log(data) //字符串
+      })
+    })
+
+    $('button').eq(2).click(function () {
+      $.ajax({
+        url: 'http://127.0.0.1:8000/jquery-server',
+        //参数
+        data: {a:100,b:200},
+        //请求类型
+        type: 'GET',
+        //响应体结果
+        dataType:'json', //规定返回的是json类型,原服务器的数据是js对象,转为json后传输,接受数据后把json还原为js对象
+        //成功的回调
+        success: function (data) {
+          console.log(data)
+        },
+        //超时时间
+        timeout: 2000,
+        //失败的回调
+        error:function () {
+          console.log('出错了!!!!')
+        },
+        //头信息
+        headers:{
+          c: 300,
+          d: 500
+        }
+      })
+
+    })
+  </script>
+
+</body>
+</html>
